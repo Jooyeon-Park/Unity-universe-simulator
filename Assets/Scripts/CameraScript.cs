@@ -38,6 +38,12 @@ public class CameraScript : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+
+
     void HandleTouch()
     {
         switch (Input.touchCount)
@@ -60,6 +66,7 @@ public class CameraScript : MonoBehaviour
                 }
                 break;
 
+            
             case 2: // Zooming
                 Vector2[] newPositions = new Vector2[] { Input.GetTouch(0).position, Input.GetTouch(1).position };
                 if (!wasZoomingLastFrame)

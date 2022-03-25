@@ -17,6 +17,11 @@ public class BackgroundScript : MonoBehaviour
         
     }
 
+    string scaleConverter(float cameraPosition)
+    {
+        return "10^" + (-cameraPosition / 3 - 3).ToString("n2")+ "m";
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -29,7 +34,7 @@ public class BackgroundScript : MonoBehaviour
             //Object setActive
             for (int i = 0; i < objectList.Count; i++)
             {
-                scale.text = cameraPosition.z.ToString();
+                scale.text = scaleConverter((float)cameraPosition.z);
                 if(objectList[i].transform.position.z > Camera.main.transform.position.z + 9.1f)
                 {
                     objectList[i].SetActive(false);

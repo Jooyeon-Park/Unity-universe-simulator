@@ -6,28 +6,41 @@ using UnityEngine.UI;
 public class ObjectClickScript : MonoBehaviour
 {
     private Renderer renderer;
-    public GameObject popUp;
+    private Outline outline;
+    private GameObject popUp;
     private GameObject objName;
     private GameObject objDescription;
+    private AudioSource clickSound;
 
     // Start is called before the first frame update
     void Start()
     {
         renderer = GetComponent<Renderer>();
+        outline = GetComponent<Outline>();
+        popUp = GameObject.Find("PopUpCanvas").transform.Find("PopUp").gameObject;
+        clickSound = GameObject.Find("Click").GetComponent<AudioSource>();
     }
 
     private void OnMouseEnter()
     {
-        renderer.material.color = Color.green;
+        outline.OutlineColor = Color.green;
+        outline.OutlineWidth = 4;
     }
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            popUp.SetActive(true);
+            clickSound.Play();
+            if (popUp.activeSelf)
+            {
+                popUp.SetActive(false);
+            }
+            else
+            {
+                popUp.SetActive(true);
+            }
 
-            GameObject.Find("BasicUI").SetActive(false);
             GameObject.Find("ObjectName").GetComponent<Text>().text = "Hamburger";
             GameObject.Find("ObjectDescription").GetComponent<Text>().text = "Size: 0.1m\n Tastes good.";
         }
@@ -35,6 +48,6 @@ public class ObjectClickScript : MonoBehaviour
 
     private void OnMouseExit()
     {
-        renderer.material.color = Color.white;
+        outline.OutlineWidth = 0;
     }
 }
